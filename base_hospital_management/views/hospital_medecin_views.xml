@@ -1,0 +1,42 @@
+<odoo>
+    <record id="view_hospital_medecin_form" model="ir.ui.view">
+        <field name="name">hospital.medecin.form</field>
+        <field name="model">hospital.medecin</field>
+        <field name="arch" type="xml">
+            <form string="Médicament">
+                <sheet>
+                    <group>
+                        <field name="denomination_commune_internationale"/>
+                        <field name="name"/>
+                        <field name="forme"/>
+                        <field name="dosage"/>
+                        <field name="laboratoire"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_hospital_medecin_tree" model="ir.ui.view">
+        <field name="name">hospital.medecin.tree</field>
+        <field name="model">hospital.medecin</field>
+        <field name="arch" type="xml">
+            <tree string="Médicaments">
+                <field name="denomination_commune_internationale"/>
+                <field name="name"/>
+                <field name="forme"/>
+                <field name="dosage"/>
+                <field name="laboratoire"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_hospital_medecin" model="ir.actions.act_window">
+        <field name="name">Médicaments</field>
+        <field name="res_model">hospital.medecin</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="menu_hospital_medecin" name="Médicaments" action="action_hospital_medecin"
+    parent="hospital_menu_configuration"/>
+</odoo>
