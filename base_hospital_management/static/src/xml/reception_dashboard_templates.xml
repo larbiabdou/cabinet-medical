@@ -85,7 +85,7 @@
                                             <button class="btn btn-outline-success save_patient" t-on-click="savePatient">Save</button>
                                         </center>
                                     </div>
-                                    <div class="out-patient" t-ref="out-patient">
+                                    <div class="row r_Profile" t-ref="out-patient">
                                         <span class="text-center" ><h1 style="margin-bottom:4rem;">Créer une visite</h1></span>
                                         <div class="row" style="margin-left:150px" id="op_table">
                                             <div class="col-m-12 col-md-6 col-lg-6">
