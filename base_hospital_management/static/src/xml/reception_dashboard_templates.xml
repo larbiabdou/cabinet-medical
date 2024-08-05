@@ -34,7 +34,7 @@
                                 <div id="content" class="col r_Container container">
                                     <div class="row r_Profile" t-ref="patient_creation">
                                         <span class="text-center mb-3 center"><h1>Créer un dossier</h1></span>
-                                        <div class="row" style="margin-left:150px" id="patient_table">
+                                        <div class="row" style="margin-left:150px" id="op_table">
                                             <div class="col-m-12 col-md-6 col-lg-6">
                                             <label for="patient_name">
                                                 Nom :</label>
