@@ -66,13 +66,13 @@
                                                 <label class="radio" style="font-size:15px;" for="+">+ve</label>
                                                 <input type="radio" id="rhtype" class="form-check-input o_radio_input" name="rhtype" value="-"/>
                                                 <label class="radio" style="font-size:15px;" for="-">-ve</label>
-
+                                            <br/>
                                             <label for="patient-gender">Sexe :</label>
                                                 <input type="radio" class="form-check-input mr-2 o_radio_input" id="o_patient-gender" checked="true" name="gender" value="male"/>
                                                 <label >Male</label>
                                                 <input type="radio" class="form-check-input mr-2 o_radio_input" id="o_patient-gender" name="gender" value="female"/>
                                                 <label >Female</label>
-
+                                            <br/>
                                             <label for="patient-gender">Situation familiale :</label>
                                             <select id="patient-m-status" class="form-control marital_status" name="status">
                                                                                     <option value="married">Married</option><option value="unmarried">Unmarried</option><option value="widow">Widow</option><option value="widower">Widower</option><option value="divorcee">Divorce</option>
