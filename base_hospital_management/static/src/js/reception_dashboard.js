@@ -44,6 +44,7 @@ class ReceptionDashBoard extends Component{
             alert("Please fill the name and phone")
             return;
         }
+        console.log(data);
         await this.orm.call('res.partner','create',[[data]]).then(function (){
            alert("the patient record has been created")
            window.location.reload()
