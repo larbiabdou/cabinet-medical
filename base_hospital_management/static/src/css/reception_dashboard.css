@@ -80,7 +80,7 @@
     padding-bottom: 8px;
 }
 
-#op_table input[type="text"], input[type="tel"],input[type="date"], #op_table select, #patient-bloodgroup,#patient-m-status,#sl_patient_id,#admission_type,#attending_doctor_id,#reason_of_admission
+#op_table input[type="text"],input[type="file"], input[type="tel"],input[type="date"],input[type="email"], #op_table select, #patient-bloodgroup,#patient-m-status,#sl_patient_id,#admission_type,#attending_doctor_id,#reason_of_admission
 {
     max-width:20rem;
     min-height:3rem;
