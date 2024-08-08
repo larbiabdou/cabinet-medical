@@ -213,3 +213,5 @@ access_patient_lab_test_doctor,access.patient.lab.test.doctor,model_patient_lab_
 access_patient_lab_test_receptionist,access.patient.lab.test.receptionist,model_patient_lab_test,base_hospital_management.base_hospital_management_group_receptionist,1,1,1,1
 access_patient_lab_test_manager,access.patient.lab.test.manager,model_patient_lab_test,base_hospital_management.base_hospital_management_group_manager,1,1,1,1
 access_hospital_medecin,access.hospital.medecin,model_hospital_medecin,base.group_user,1,1,1,1
+access_medical_care,access.medical.care,model_medical_care,base.group_user,1,1,1,1
+access_visit_type,access.visit.type,model_visit_type,base.group_user,1,1,1,1

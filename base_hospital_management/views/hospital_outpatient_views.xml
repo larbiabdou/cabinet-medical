@@ -11,6 +11,7 @@
                 <field name="patient_id"/>
                 <!--<field name="doctor_id"/>-->
                 <field name="op_date"/>
+                <field name="amount"/>
                 <field name="reason"/>
                 <field name="state" widget='badge'
                        decoration-warning="state=='draft'"
@@ -110,6 +111,7 @@
                     </group>
                     <group>
                         <field name="reason"/>
+                        <field name="amount"/>
                     </group>
                     <notebook invisible="state not in ('op')">
                         <page name="Prescription" string="Prescription">
@@ -122,6 +124,22 @@
                                    
                                     <field name="qsp"/>
                                 </tree>
+                            </field>
+                        </page>
+                        <page name="Soins">
+                            <field name="medical_care_ids">
+                                <tree editable="bottom">
+                                    <field name="product_id"/>
+                                    <field name="quantity"/>
+                                    <field name="uom_id"/>
+                                    <field name="product_uom_category_id" invisible="1"/>
+                                </tree>
+                                <form>
+                                    <field name="product_id"/>
+                                    <field name="quantity"/>
+                                    <field name="uom_id"/>
+                                    <field name="product_uom_category_id" invisible="1"/>
+                                </form>
                             </field>
                         </page>
                         <page string="Notes">

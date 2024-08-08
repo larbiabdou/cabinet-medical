@@ -61,8 +61,9 @@ class HospitalOutpatient(models.Model):
                                 domain=[('slot_remaining', '>', 0),
                                         ('date', '=', fields.date.today()),
                                         ('state', '=', 'confirm')])
-    op_date = fields.Date(default=fields.Date.today(), string='Date',
+    op_date = fields.Datetime(default=lambda self: fields.Datetime.now(), string='Date',
                           help='Date of OP')
+
     reason = fields.Text(string='Reason', help='Reason for visiting hospital')
     test_count = fields.Integer(string='Test Created',
                                 help='Number of tests created for the patient',
@@ -96,6 +97,16 @@ class HospitalOutpatient(models.Model):
     note = fields.Text(
         string="Note",
         required=False)
+    
+    amount = fields.Float(
+        string='Montant à payer', 
+        required=False)
+    
+    medical_care_ids = fields.One2many(
+        comodel_name='medical.care',
+        inverse_name='outpatient_id',
+        string='Soins',
+        required=False)
 
     @api.model
     def create(self, vals):
@@ -123,16 +134,16 @@ class HospitalOutpatient(models.Model):
     def _compute_test_count(self):
         """Computes the value of test count"""
         self.test_count = len(self.test_ids.ids)
-
-    @api.onchange('op_date')
-    def _onchange_op_date(self):
-        """Method for updating the doamil of doctor_id"""
-        self.doctor_id = False
-        return {'domain': {'doctor_id': [('slot_remaining', '>', 0),
-                                         ('date', '=', self.op_date),
-                                         ('state', '=', 'confirm'), (
-                                             'patient_type', 'in',
-                                             [False, 'outpatient'])]}}
+    #
+    # @api.onchange('op_date')
+    # def _onchange_op_date(self):
+    #     """Method for updating the doamil of doctor_id"""
+    #     self.doctor_id = False
+    #     return {'domain': {'doctor_id': [('slot_remaining', '>', 0),
+    #                                      ('date', '=', self.op_date),
+    #                                      ('state', '=', 'confirm'), (
+    #                                          'patient_type', 'in',
+    #                                          [False, 'outpatient'])]}}
 
     @api.model
     def action_row_click_data(self, op_reference):
@@ -338,3 +349,18 @@ class HospitalOutpatient(models.Model):
         return self.env.ref(
             'base_hospital_management.action_report_patient_prescription'). \
             report_action(self, data=data)
+    
+
+class VisiteType(models.Model):
+    _name = 'visit.type'
+    _description = 'Type de visite'
+
+    name = fields.Char(string="Nom")
+
+    medical_care_ids = fields.One2many(
+        comodel_name='medical.care',
+        inverse_name='type_id',
+        string='Soins',
+        required=False)
+    
+

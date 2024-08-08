@@ -59,3 +59,4 @@ from . import room_facility
 from . import hospital_medecine
 #from . import medecin_forme
 #from . import hospital_laboratoire
+from . import medical_care

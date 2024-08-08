@@ -45,7 +45,7 @@ class PrescriptionLine(models.Model):
     posologie = fields.Char(
         string='Posologie', 
         required=False)
-    date = fields.Date(
+    date = fields.Datetime(
         string='Date',
         related='outpatient_id.op_date',
         required=False)

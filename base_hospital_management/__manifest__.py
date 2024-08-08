@@ -75,6 +75,7 @@
         "views/patient_room_views.xml",
         "views/lab_test_line_views.xml",
         'views/hospital_medecin_views.xml',
+        'views/visite_type_view.xml',
         #'views/medicament_form_views.xml',
         #'views/medicament_laboratoire_views.xml',
         "report/res_partner_reports.xml",
