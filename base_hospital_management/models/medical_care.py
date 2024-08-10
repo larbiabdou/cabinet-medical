@@ -30,3 +30,8 @@ class MedicalCare(models.Model):
 
     product_uom_category_id = fields.Many2one(related='product_id.uom_id.category_id')
 
+    @api.onchange('product_id')
+    def _compute_uom_id(self):
+        for record in self:
+            record.uom_id = record.product_id.uom_id.id
+

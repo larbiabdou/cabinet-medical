@@ -188,10 +188,8 @@
                                         <tree editable="bottom" create="0">
                                             <field name="date"/>
                                             <field name="medicine_id"/>
-                                            <field name="quantity"/>
-                                            <field name="no_intakes"/>
-                                            <field name="time"/>
-                                            <field name="note"/>
+                                            <field name="posologie"/>
+                                            <field name="qsp"/>
                                         </tree>
                                     </field>
                                 </page>

@@ -49,6 +49,8 @@
                             base_hospital_management.base_hospital_management_group_doctor,
                             base_hospital_management.base_hospital_management_group_receptionist,
                             base_hospital_management.base_hospital_management_group_nurse"/>
+                    <button name="consume_medical_care_ids" type="object" string="Consommer les soins"
+                    class="oe_highlight"/>
                     <!--<button name="action_convert_to_inpatient"
                             string="Convert to Inpatient"
                             class="oe_highlight" invisible="state !='op'" type="object"
@@ -104,6 +106,7 @@
                            <!-- <field name="doctor_id"
                                    options="{'no_create': True, 'no_edit': True}"
                                    readonly="state in ('invoice','cancel')"/>-->
+                            <field name="visit_type_id" required="1"/>
                             <field name="slot" invisible="state not in ('op')"
                                      widget="float_time"/>
                             <field name="test_count" invisible="1"/>
@@ -132,13 +135,13 @@
                                     <field name="product_id"/>
                                     <field name="quantity"/>
                                     <field name="uom_id"/>
-                                    <field name="product_uom_category_id" invisible="1"/>
+                                    <field name="product_uom_category_id" column_invisible="1"/>
                                 </tree>
                                 <form>
                                     <field name="product_id"/>
                                     <field name="quantity"/>
                                     <field name="uom_id"/>
-                                    <field name="product_uom_category_id" invisible="1"/>
+                                    <field name="product_uom_category_id" invisible="True"/>
                                 </form>
                             </field>
                         </page>

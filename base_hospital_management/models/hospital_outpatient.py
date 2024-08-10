@@ -108,6 +108,38 @@ class HospitalOutpatient(models.Model):
         string='Soins',
         required=False)
 
+    visit_type_id = fields.Many2one(
+        comodel_name='visit.type',
+        string='Type de visite',
+        required=False)
+
+    def consume_medical_care_ids(self):
+        for record in self:
+            location_production = self.env['stock.location'].search([('usage', '=', 'production')])
+            for line in record.medical_care_ids:
+                move_dest = self.env['stock.move'].create({
+                    'name': 'Soins médicaux visite ' + record.op_reference,
+                    'product_id': line.product_id.id,
+                    'product_uom': line.uom_id.id,
+                    'location_id': self.env.ref('stock.stock_location_stock').id,
+                    'location_dest_id': location_production.id,
+                    'product_uom_qty': line.quantity,
+                    'quantity': line.quantity,
+                })
+                move_dest._action_confirm()
+                move_dest._action_done()
+                move_dest.state = 'done'
+
+    @api.onchange('visit_type_id')
+    def _onchange_visit_type_id(self):
+        for record in self:
+            for line in record.visit_type_id.medical_care_ids:
+                record.medical_care_ids = [(0, 0, {
+                    'product_id': line.product_id.id,
+                    'uom_id': line.uom_id.id,
+                    'quantity': line.quantity,
+                })]
+
     @api.model
     def create(self, vals):
         """Op number generator"""
