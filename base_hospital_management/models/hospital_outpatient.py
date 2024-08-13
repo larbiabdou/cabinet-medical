@@ -121,7 +121,7 @@ class HospitalOutpatient(models.Model):
 
     test_lab_group_ids = fields.Many2many(
         comodel_name='laboratory.test.group',
-        string='Test_lab_group_ids')
+        string='Groupe de tests')
 
     button_consume_invisible = fields.Boolean(
         string='Button_consume_invisible',
