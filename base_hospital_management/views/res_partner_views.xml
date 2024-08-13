@@ -164,13 +164,7 @@
                                         </div>
                                     </div>
                                 </group>
-                                <group>
-                                    <group>
-                                        <field name="barcode_png"
-                                               widget="image"/>
-                                        <field name="barcode" invisible="1"/>
-                                    </group>
-                                </group>
+
                             </group>
                         </page>
                         <page string="Visites">
