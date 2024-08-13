@@ -113,11 +113,44 @@ class HospitalOutpatient(models.Model):
         string='Type de visite',
         required=False)
 
+    test_lab_ids = fields.One2many(
+        comodel_name='laboratory.test.line',
+        inverse_name='outpatient_id',
+        string='Test_lab_ids',
+        required=False)
+
+    test_lab_group_ids = fields.Many2many(
+        comodel_name='laboratory.test.group',
+        string='Test_lab_group_ids')
+
+    button_consume_invisible = fields.Boolean(
+        string='Button_consume_invisible',
+        compue="compute_button_consume_invisible",
+        required=False)
+
+    def compute_button_consume_invisible(self):
+        for record in self:
+            if any(not line.consumed for line in record.medical_care_ids):
+                record.button_consume_invisible = False
+            else:
+                record.button_consume_invisible = True
+
+    @api.onchange('test_lab_group_ids')
+    def onchange_test_lab_group(self):
+        for record in self:
+            for group in record.test_lab_group_ids:
+                for test in group.sub_tests:
+                    if test._origin.id not in record.test_lab_ids.mapped('test_id').ids:
+                        record.test_lab_ids = [(0, 0, {
+                            'test_id': test._origin.id
+                        })]
+
     def consume_medical_care_ids(self):
         for record in self:
             location_production = self.env['stock.location'].search([('usage', '=', 'production')])
-            for line in record.medical_care_ids:
-                move_dest = self.env['stock.move'].create({
+            data = []
+            for line in record.medical_care_ids.filtered(lambda l: not l.consumed):
+                data.append([0, 0, {
                     'name': 'Soins médicaux visite ' + record.op_reference,
                     'product_id': line.product_id.id,
                     'product_uom': line.uom_id.id,
@@ -125,10 +158,20 @@ class HospitalOutpatient(models.Model):
                     'location_dest_id': location_production.id,
                     'product_uom_qty': line.quantity,
                     'quantity': line.quantity,
-                })
-                move_dest._action_confirm()
-                move_dest._action_done()
-                move_dest.state = 'done'
+                }])
+            pick_output = self.env['stock.picking'].create({
+                #'name': 'Soins',
+                'picking_type_id': self.env.ref('stock.picking_type_out').id,
+                'location_id': self.env.ref('stock.stock_location_stock').id,
+                'location_dest_id': location_production.id,
+                'origin': self.op_reference,
+                'move_ids': data,
+            })
+            pick_output.button_validate()
+            for line in record.medical_care_ids.filtered(lambda l: not l.consumed):
+                line.consumed = True
+
+    
 
     @api.onchange('visit_type_id')
     def _onchange_visit_type_id(self):
@@ -376,6 +419,8 @@ class HospitalOutpatient(models.Model):
                 'date': self.op_date.strftime('%d/%m/%Y'),
                 'patient_name': self.patient_id.name,
                 'age': self.patient_id.age,
+                'lastname': self.patient_id.lastname,
+                'firstname': self.patient_id.firstname,
                 #'doctor_name': self.doctor_id.doctor_id.name,
             }
         return self.env.ref(
@@ -394,5 +439,26 @@ class VisiteType(models.Model):
         inverse_name='type_id',
         string='Soins',
         required=False)
+
+
+class laboratoryTestLine(models.Model):
+    _name = 'laboratory.test.line'
+    _description = 'laboratory Test Line'
+
+    outpatient_id = fields.Many2one(
+        comodel_name='hospital.outpatient',
+        string='Outpatient_id',
+        required=False)
+
+    test_id = fields.Many2one(
+        comodel_name='laboratory.test',
+        string='Test',
+        required=False)
+
+    result = fields.Char(
+        string='Résultat',
+        required=False)
+
+
     
 

@@ -345,6 +345,23 @@ class ResPartner(models.Model):
 
     age = fields.Integer(string='Age', compute='_compute_age')
 
+    firstname = fields.Char(
+        string='Prénom',
+        required=False)
+
+    lastname = fields.Char(
+        string='Nom',
+        required=False)
+
+    @api.onchange('firstname', 'lastname')
+    def onchange_lastname_firstname(self):
+        for record in self:
+            record.name = ''
+            if record.lastname:
+                record.name = record.lastname
+            if record.firstname:
+                record.name += ' ' + record.firstname
+
     def _compute_age(self):
         for record in self:
             if record.date_of_birth:

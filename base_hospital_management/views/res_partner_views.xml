@@ -107,7 +107,10 @@
                                    context="{'res_partner_search_mode':
                                     'customer',
                                     'show_address': 1, 'show_email':1}"
+                                   invisible="1"
                                    options="{&quot;always_reload&quot;: True}"/>
+                            <field name="lastname"/>
+                            <field name="firstname"/>
                             <field name="date_of_birth"/>
                             <field name="age"/>
                             <field name="phone"/>

@@ -7,7 +7,7 @@
             <field name="format">A5</field>
             <field name="orientation">Portrait</field>
             <field name="margin_top">10</field>
-            <field name="margin_bottom">32</field>
+            <field name="margin_bottom">15</field>
             <field name="margin_left">7</field>
             <field name="margin_right">7</field>
             <field name="header_line" eval="False" />
@@ -28,32 +28,66 @@
     <template id="patient_prescription_report">
         <t t-call="web.html_container">
             <t t-call="web.basic_layout">
-                <table style="font-size: 17px!important;font-style: italic; font-weight: 800 !important;width: 100%;border: transparent !important;">
+                <table style="width: 100%;border: transparent !important;">
                     <tr style="border: none;">
-                        <td style="border: none; height: 25px;width: 50%;">Docteur Mansouri Ahmed.</td>
-                        <td style="border: none; height: 25px;width: 50%;">SEG: <span t-esc="date"/></td>
+                        <td style="border: none;border-bottom: 2px solid black !important; width: 40%;text-align:center">
+                           <p style="font-size: 16px !important;font-weight: 800 !important;">
+                               DR HAMMADI
+                           </p>
+                        <p style="font-size: 14px !important;">
+                            Cabinet de médecine générale
+                        </p>
+                        <p style="font-size: 14px!important;">
+                            Echographie générale - ECG
+                        </p>
+                            <p style="font-size: 16px !important;font-weight: 800 !important;">
+                                N° 10236/tzo
+                            </p>
+
+                        </td>
+                        <td rowspan="4" style="border: none;height: 35px;width: 30%;">
+                            <img src="/base_hospital_management/static/img/logo-cabinet.jpeg" style="width: 100%;" alt=""/>
+                        </td>
+                        <td style="border: none;border-bottom: 2px solid black !important;width: 30%;text-align:center">
+                            <p style="font-size: 16px !important;font-weight: 800 !important;">
+                                الحكيمة حمادي
+                            </p>
+
+                        <p style="font-size: 16px !important;font-weight: 800 !important;">
+                            طبيبة عامة
+                        </p>
+                            <p style="font-size: 14px !important;">
+                                إيكو غرافي ـ مخطط القلب
+                            </p>
+
+                        </td>
                     </tr>
+                </table>
+                <table style="width: 100%; border: transparent !important;">
                     <tr style="border: none;">
-                        <td style="border: none; height: 25px;">Consultation Diabétologie.</td>
-                        <td style="border: none; height: 25px;"></td>
+                        <td style="font-size: 16px !important;font-weight: 800 !important;border: none; height: 25px;width: 70%">Nom: <span t-esc="lastname"/></td>
+                        <td style="border:none"></td>
                     </tr>
-                    <tr style="border: none;">
-                        <td style="border: none; height: 25px;">Echographie-ECG.</td>
-                        <td style="border: none; height: 25px;">Nom et Prénom: <span t-esc="patient_name"/></td>
+                    <tr style="font-size: 16px !important;font-weight: 800 !important;border: none;">
+                        <td style="border: none; height: 25px;">Prénom: <span t-esc="firstname"/></td>
+                        <td style="border: none; height: 25px;width: 50%;">Le: <span t-esc="date"/></td>
                     </tr>
-                    <tr style="border: none;">
-                        <td style="border: none; height: 25px;">OM: 2061 TZO</td>
-                        <td style="border: none; height: 25px;">Age: <t t-if="age != 0"><span t-esc="age"/> Ans</t></td>
-                    </tr>
-                    <tr style="border: none;">
-                        <td style="border: none; height: 25px;">Tel: 026 75 82 94</td>
-                        <td style="border: none; height: 25px;"></td>
+                    <tr style="border:none">
+                        <td style="font-size: 16px !important;font-weight: 800 !important;border: none; height: 25px;">Age:
+                        <span t-esc="age"/> Ans</td>
+                        <td style="border:none"></td>
                     </tr>
                 </table>
                 <br/> <br/>
-                <div style="font-size: 17px!important; font-weight: 800 !important; text-align: center">
-                    Ordonnance
+                <div class="row">
+                    <div class="col-4"></div>
+                    <div style="width: 180px;padding: 10px;border-radius:5px; color: #FFF; background-color: #222D7E;font-size: 17px!important; font-weight: 800 !important; text-align: center">
+                    ORDONNANCE
                 </div>
+                    <div class="col-4"></div>
+                </div>
+
+
                 <br/>
                 <br/>
                 <br/>
@@ -82,7 +116,19 @@ qsp<br/>
 
                 </t>
                
-               
+               <div t-attf-class="footer" style="border-top: 1px solid #000; padding-top: 10px;">
+                   <table style="border: transparent !important; width:100%">
+                       <tr>
+                           <td>
+                               <i class="fa fa-phone"></i>
+                               05 50 46 81 10 / 07 95 42 53 77</td>
+
+                           <td> <i class="fa fa-map-marker"></i>
+                               Ain Amor, SEG</td>
+                       </tr>
+                   </table>
+
+                </div>
             </t>
         </t>
     </template>

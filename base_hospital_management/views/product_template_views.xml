@@ -9,14 +9,13 @@
         <field name="arch" type="xml">
             <xpath expr="//field[@name='uom_id']" position="after">
                 <field name="vaccine_ok"
-                       invisible="medicine_ok == True"/>
+                       invisible="1"/>
                 <field name="medicine_ok"
-                       invisible="vaccine_ok == True"/>
+                       invisible="1"/>
                 <field name="medicine_brand_id"
-                       invisible="(vaccine_ok == False) and
-                       (medicine_ok == False)"/>
+                       invisible="1"/>
                 <field name="pharmacy_id"
-                       invisible="(vaccine_ok == False) and (medicine_ok == False)"
+                       invisible="1"
                        options="{'no_create': True, 'no_edit': True}"/>
             </xpath>
         </field>

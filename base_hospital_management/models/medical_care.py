@@ -29,6 +29,10 @@ class MedicalCare(models.Model):
         required=False)
 
     product_uom_category_id = fields.Many2one(related='product_id.uom_id.category_id')
+    
+    consumed = fields.Boolean(
+        string='Consumed', 
+        required=False)
 
     @api.onchange('product_id')
     def _compute_uom_id(self):

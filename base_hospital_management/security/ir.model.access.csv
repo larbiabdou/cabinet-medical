@@ -215,3 +215,6 @@ access_patient_lab_test_manager,access.patient.lab.test.manager,model_patient_la
 access_hospital_medecin,access.hospital.medecin,model_hospital_medecin,base.group_user,1,1,1,1
 access_medical_care,access.medical.care,model_medical_care,base.group_user,1,1,1,1
 access_visit_type,access.visit.type,model_visit_type,base.group_user,1,1,1,1
+access_laboratory_test,access.laboratory.test,model_laboratory_test,base.group_user,1,1,1,1
+access_laboratory_test_line,access.laboratory.test.line,model_laboratory_test_line,base.group_user,1,1,1,1
+access_laboratory_test_group,access.laboratory.test.group,model_laboratory_test_group,base.group_user,1,1,1,1

@@ -50,7 +50,9 @@
                             base_hospital_management.base_hospital_management_group_receptionist,
                             base_hospital_management.base_hospital_management_group_nurse"/>
                     <button name="consume_medical_care_ids" type="object" string="Consommer les soins"
+                            invisible="state not in ('op') or button_consume_invisible"
                     class="oe_highlight"/>
+                    <field name="button_consume_invisible"/>
                     <!--<button name="action_convert_to_inpatient"
                             string="Convert to Inpatient"
                             class="oe_highlight" invisible="state !='op'" type="object"
@@ -101,6 +103,8 @@
                             <field name="patient_id" domain="[('is_patient', '=', True)]" context="{'default_is_patient': True}"/>
                             <field name="op_date"/>
                             <field name="invoiced" invisible="1"/>
+                            <field name="reason"/>
+                            <field name="amount"/>
                         </group>
                         <group>
                            <!-- <field name="doctor_id"
@@ -110,11 +114,8 @@
                             <field name="slot" invisible="state not in ('op')"
                                      widget="float_time"/>
                             <field name="test_count" invisible="1"/>
+                            <field name="test_lab_group_ids" widget="many2many_tags"/>
                         </group>
-                    </group>
-                    <group>
-                        <field name="reason"/>
-                        <field name="amount"/>
                     </group>
                     <notebook invisible="state not in ('op')">
                         <page name="Prescription" string="Prescription">
@@ -143,6 +144,14 @@
                                     <field name="uom_id"/>
                                     <field name="product_uom_category_id" invisible="True"/>
                                 </form>
+                            </field>
+                        </page>
+                        <page string="Demande de Bilan">
+                            <field name="test_lab_ids">
+                                <tree editable="bottom">
+                                    <field name="test_id"/>
+                                    <field name="result"/>
+                                </tree>
                             </field>
                         </page>
                         <page string="Notes">

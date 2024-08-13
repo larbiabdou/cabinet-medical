@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="laboratory_test_group_view_form" model="ir.ui.view">
+        <field name="name">laboratory_test_group_view_form</field>
+        <field name="model">laboratory.test.group</field>
+        <field name="arch" type="xml">
+            <form string="laboratory_test_group_form">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="sub_tests" widget="many2many_tags" domain="[('parent_id', '=', False)]"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="laboratory_test_view_form" model="ir.ui.view">
+        <field name="name">laboratory_test_view_form</field>
+        <field name="model">laboratory.test</field>
+        <field name="arch" type="xml">
+            <form string="laboratory_test_group_form">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="sub_test_ids" widget="many2many_tags"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="laboratory_test_group_view_tree" model="ir.ui.view">
+        <field name="name">laboratory_test_group_view_tree</field>
+        <field name="model">laboratory.test.group</field>
+        <field name="arch" type="xml">
+            <tree string="laboratory_test_group_form">
+
+                        <field name="name"/>
+                        <field name="sub_tests" widget="many2many_tags" domain="[('parent_id', '=', False)]"/>
+
+            </tree>
+        </field>
+    </record>
+    <record id="laboratory_test_view_tree" model="ir.ui.view">
+        <field name="name">laboratory_test_view_tree</field>
+        <field name="model">laboratory.test</field>
+        <field name="arch" type="xml">
+            <tree string="laboratory_test_group_form">
+                        <field name="name"/>
+                        <field name="sub_test_ids" widget="many2many_tags"/>
+            </tree>
+        </field>
+    </record>
+    <record id="laboratory_test_action" model="ir.actions.act_window">
+        <field name="name">Tests</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">laboratory.test</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <record id="laboratory_test_group_action" model="ir.actions.act_window">
+        <field name="name">Groupes de Tests</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">laboratory.test.group</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <!-- This Menu Item must have a parent and an action -->
+    <menuitem id="laboratory_test_menu" parent="hospital_menu_configuration" action="laboratory_test_action"/>
+    <menuitem id="laboratory_test_group_menu" parent="hospital_menu_configuration" action="laboratory_test_group_action"/>
+</odoo>

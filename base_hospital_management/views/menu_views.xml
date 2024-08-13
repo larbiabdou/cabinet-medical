@@ -30,35 +30,35 @@
               groups="base_hospital_management.base_hospital_management_group_manager"
               parent="hospital_menu_root"/>
     <!--Reception dashboard action-->
-    <record id="reception_dashboard_action" model="ir.actions.client">
+    <!--<record id="reception_dashboard_action" model="ir.actions.client">
         <field name="name">Reception Dashboard</field>
         <field name="tag">reception_dashboard_tags</field>
     </record>
-    <!--Reception dashboard menu-->
+    &lt;!&ndash;Reception dashboard menu&ndash;&gt;
     <menuitem name="Dashboard" id="reception_dashboard_menu"
               parent="hospital_menu_root" sequence="0"
               groups="base_hospital_management.base_hospital_management_group_doctor"
-              action="reception_dashboard_action"/>
+              action="reception_dashboard_action"/>-->
     <!--Lab dashboard action-->
-    <record id="lab_dashboard_action" model="ir.actions.client">
+    <!--<record id="lab_dashboard_action" model="ir.actions.client">
         <field name="name">Laboratory Dashboard</field>
         <field name="tag">lab_dashboard_tags</field>
     </record>
-    <!--Lab dashboard menu-->
+    &lt;!&ndash;Lab dashboard menu&ndash;&gt;
     <menuitem id="lab_dashboard_menu" name="Dashboard"
               parent="hospital_menu_root" sequence="0"
               groups="base_hospital_management.base_hospital_management_group_lab_assistant"
-              action="lab_dashboard_action"/>
+              action="lab_dashboard_action"/>-->
     <!--    Pharmacist dashboard action-->
-    <record id="pharmacist_dashboard_action" model="ir.actions.client">
+    <!--<record id="pharmacist_dashboard_action" model="ir.actions.client">
         <field name="name">Pharmacy Dashboard</field>
         <field name="tag">pharmacy_dashboard_tags</field>
     </record>
-    <!--    Pharmacist dashboard menu-->
+    &lt;!&ndash;    Pharmacist dashboard menu&ndash;&gt;
     <menuitem id="pharma_dashboard_menu" name="Dashboard"
               parent="hospital_menu_root" sequence="0"
               groups="base_hospital_management.base_hospital_management_group_pharmacist"
-              action="pharmacist_dashboard_action"/>
+              action="pharmacist_dashboard_action"/>-->
             <menuitem id="hospital_menu_visite" name="Visites"
               parent="hospital_menu_root"
               action="hospital_outpatient_action_visite"
