@@ -297,7 +297,8 @@ class HospitalOutpatient(models.Model):
         """Create out patient from receptionist dashboard"""
         if kw['id']:
             partner = self.env['res.partner'].sudo().search(
-                ['|', ('barcode', '=', kw['id']),
+                [
+                    #'|', ('barcode', '=', kw['id']),
                  ('phone', '=', kw['op_phone'])])
             self.sudo().create({
                 'patient_id': partner.id,

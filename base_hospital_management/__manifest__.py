@@ -101,7 +101,7 @@
             #"base_hospital_management/static/src/js/reception_dashboard.js",
         ],
     },
-    "external_dependencies": {"python": ["python-barcode"]},
+    #"external_dependencies": {"python": ["python-barcode"]},
     "images": ["static/description/banner.jpg"],
     "license": "AGPL-3",
     "installable": True,

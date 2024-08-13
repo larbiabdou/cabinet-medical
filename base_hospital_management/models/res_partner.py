@@ -23,8 +23,8 @@ import math
 import re
 import base64
 from datetime import date
-from barcode import EAN13
-from barcode.writer import ImageWriter
+#from barcode import EAN13
+#from barcode.writer import ImageWriter
 from dateutil.relativedelta import *
 from odoo import api, fields, models
 
@@ -79,9 +79,9 @@ class ResPartner(models.Model):
                                 domain=[('job_id.name', '=', 'Doctor')],
                                 string="Family Doctor",
                                 help='Family doctor of the patient')
-    barcode = fields.Char(string='Barcode', help='Barcode for the patient')
-    barcode_png = fields.Binary(string='Barcode PNG',
-                                help='Image file of the barcode', readonly=True)
+    #barcode = fields.Char(string='Barcode', help='Barcode for the patient')
+    #barcode_png = fields.Binary(string='Barcode PNG',
+                                #help='Image file of the barcode', readonly=True)
     group = fields.Selection(selection=[
         ('hindu', 'Hindu'), ('muslim', 'Muslim'), ('christian', 'Christian')],
         string="Ethnic Group", help="Specify your religion")
@@ -490,16 +490,16 @@ class ResPartner(models.Model):
         current_age = 0
         gender_caps = ''
         blood_caps = ''
-        if not self.barcode:
-            ean = self.sudo().generate_ean(str(self.id))
-            self.sudo().write({'barcode': ean})
-            number = self.barcode
-            my_code = EAN13(number, writer=ImageWriter())
-            my_code.save("code")
-            with open('code.png', 'rb') as f:
-                self.sudo().write({
-                    'barcode_png': base64.b64encode(f.read())
-                })
+        #if not self.barcode:
+         #   ean = self.sudo().generate_ean(str(self.id))
+          #  self.sudo().write({'barcode': ean})
+           # number = self.barcode
+            #my_code = EAN13(number, writer=ImageWriter())
+            #my_code.save("code")
+            #with open('code.png', 'rb') as f:
+             #   self.sudo().write({
+              #      'barcode_png': base64.b64encode(f.read())
+               # })
         if self.gender:
             gender_caps = self.gender.capitalize()
         if self.blood_group:
@@ -524,7 +524,7 @@ class ResPartner(models.Model):
             'city': self.city,
             'phone': self.phone,
             'image': self.sudo().read(['image_1920'])[0],
-            'barcode': self.sudo().read(['barcode_png'])[0],
+            #'barcode': self.sudo().read(['barcode_png'])[0],
             'company_name': company.name,
             'company_street': company.street,
             'company_street2': company.street2,
@@ -577,8 +577,8 @@ class ResPartner(models.Model):
     def action_get_patient_data(self, patient_id):
         """Method which returns patient details"""
         data = self.sudo().search([
-            '|', ('patient_seq', '=', patient_id),
-            ('barcode', '=', patient_id)
+             ('patient_seq', '=', patient_id),
+            #('barcode', '=', patient_id)
         ])
         patient_history = []
         for rec in self.env['hospital.outpatient'].sudo().search(
