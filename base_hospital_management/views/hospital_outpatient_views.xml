@@ -42,43 +42,21 @@
                             base_hospital_management.base_hospital_management_group_doctor,
                             base_hospital_management.base_hospital_management_group_receptionist,
                             base_hospital_management.base_hospital_management_group_nurse"/>
+
                     <button name="action_print_prescription" string="Print"
                             type="object" class="oe_highlight"
                             invisible="state not in ('op','inpatient','invoice')"
-                            groups="base_hospital_management.base_hospital_management_group_manager,
-                            base_hospital_management.base_hospital_management_group_doctor,
-                            base_hospital_management.base_hospital_management_group_receptionist,
-                            base_hospital_management.base_hospital_management_group_nurse"/>
+                            groups="base_hospital_management.base_hospital_management_group_doctor"
+                        />
+                     <button name="action_print_test_order" string="Demande de bilan"
+                            type="object" class="oe_highlight"
+                            invisible="state not in ('op')"
+                            groups="base_hospital_management.base_hospital_management_group_doctor"
+                        />
                     <button name="consume_medical_care_ids" type="object" string="Consommer les soins"
-                            invisible="state not in ('op') or button_consume_invisible"
+                            invisible="state not in ('op') or button_consume_visible"
                     class="oe_highlight"/>
-                    <field name="button_consume_invisible"/>
-                    <!--<button name="action_convert_to_inpatient"
-                            string="Convert to Inpatient"
-                            class="oe_highlight" invisible="state !='op'" type="object"
-                            groups="base_hospital_management.base_hospital_management_group_manager,
-                            base_hospital_management.base_hospital_management_group_doctor,
-                            base_hospital_management.base_hospital_management_group_receptionist,
-                            base_hospital_management.base_hospital_management_group_nurse"/>-->
-                    <!--<button name="action_create_lab_test"
-                            string="Create Test" class="oe_highlight"
-                            invisible="state!='op'" type="object"
-                            groups="base_hospital_management.base_hospital_management_group_manager,
-                            base_hospital_management.base_hospital_management_group_receptionist,
-                            base_hospital_management.base_hospital_management_group_lab_assistant,
-                            base_hospital_management.base_hospital_management_group_nurse"/>-->
-<!--                    <button name="create_invoice"
-                            string="Create Invoice" class="oe_highlight"
-                            invisible="state not in ('op','rft')" type="object"
-                            groups="base_hospital_management.base_hospital_management_group_manager,
-                            base_hospital_management.base_hospital_management_group_lab_assistant,
-                            base_hospital_management.base_hospital_management_group_receptionist"/>-->
-                    <!--<button name="action_op_cancel" string="Cancel"
-                            invisible="state != 'op'" type="object"
-                            groups="base_hospital_management.base_hospital_management_group_manager,
-                            base_hospital_management.base_hospital_management_group_receptionist,
-                            base_hospital_management.base_hospital_management_group_doctor,
-                            base_hospital_management.base_hospital_management_group_nurse"/>-->
+                    <field name="button_consume_visible" invisible="1"/>
                     <field name="state" widget="statusbar" />
                 </header>
                 <sheet>
@@ -136,6 +114,7 @@
                                     <field name="product_id"/>
                                     <field name="quantity"/>
                                     <field name="uom_id"/>
+                                    <field name="consumed"/>
                                     <field name="product_uom_category_id" column_invisible="1"/>
                                 </tree>
                                 <form>
@@ -149,7 +128,7 @@
                         <page string="Demande de Bilan">
                             <field name="test_lab_ids">
                                 <tree editable="bottom">
-                                    <field name="test_id"/>
+                                    <field name="test_id" domain="[('parent_id', '=', False)]"/>
                                     <field name="result"/>
                                 </tree>
                             </field>

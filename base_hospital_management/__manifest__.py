@@ -35,7 +35,7 @@
     "company": "Cybrosys Techno Solutions",
     "maintainer": "Cybrosys Techno Solutions",
     "website": "https://www.cybrosys.com",
-    "depends": ["hr", 'custom_login_page'],
+    "depends": ["hr", 'custom_login_page', 'product', 'stock'],
     "data": [
         "security/base_hospital_management_groups.xml",
         "security/ir.model.access.csv",

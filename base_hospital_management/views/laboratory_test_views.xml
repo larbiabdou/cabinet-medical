@@ -44,7 +44,7 @@
         <field name="name">laboratory_test_view_tree</field>
         <field name="model">laboratory.test</field>
         <field name="arch" type="xml">
-            <tree string="laboratory_test_group_form">
+            <tree string="laboratory_test_group_form" editable="bottom">
                         <field name="name"/>
                         <field name="sub_test_ids" widget="many2many_tags"/>
             </tree>

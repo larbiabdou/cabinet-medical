@@ -24,6 +24,17 @@
         <field name="binding_type">report</field>
         <field name="paperformat_id" ref="paperformat_medical_prescription"/>
     </record>
+    <record id="action_report_test_order" model="ir.actions.report">
+        <field name="name">Demande de bilan</field>
+        <field name="model">res.partner</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">base_hospital_management.patient_test_order</field>
+        <field name="report_file">base_hospital_management.patient_test_order</field>
+        <field name="binding_model_id" ref="model_res_partner"/>
+        <field name="binding_type">report</field>
+        <field name="paperformat_id" ref="paperformat_medical_prescription"/>
+    </record>
+
     <!--    Patient prescription report template-->
     <template id="patient_prescription_report">
         <t t-call="web.html_container">
@@ -65,20 +76,20 @@
                 </table>
                 <table style="width: 100%; border: transparent !important;">
                     <tr style="border: none;">
-                        <td style="font-size: 16px !important;font-weight: 800 !important;border: none; height: 25px;width: 70%">Nom: <span t-esc="lastname"/></td>
+                        <td style="font-size: 16px !important;font-weight: 800 !important;border: none; height: 25px;width: 70%">Nom: &#160;&#160;&#160;<span t-esc="lastname"/></td>
                         <td style="border:none"></td>
                     </tr>
                     <tr style="font-size: 16px !important;font-weight: 800 !important;border: none;">
-                        <td style="border: none; height: 25px;">Prénom: <span t-esc="firstname"/></td>
-                        <td style="border: none; height: 25px;width: 50%;">Le: <span t-esc="date"/></td>
+                        <td style="border: none; height: 25px;">Prénom: &#160;&#160;&#160;<span t-esc="firstname"/></td>
+                        <td style="border: none; height: 25px;width: 50%;">Le: &#160;&#160;&#160;<span t-esc="date"/></td>
                     </tr>
                     <tr style="border:none">
-                        <td style="font-size: 16px !important;font-weight: 800 !important;border: none; height: 25px;">Age:
+                        <td style="font-size: 16px !important;font-weight: 800 !important;border: none; height: 25px;">Age: &#160;&#160;&#160;
                         <span t-esc="age"/> Ans</td>
                         <td style="border:none"></td>
                     </tr>
                 </table>
-                <br/> <br/>
+                <br/>
                 <div class="row">
                     <div class="col-4"></div>
                     <div style="width: 180px;padding: 10px;border-radius:5px; color: #FFF; background-color: #222D7E;font-size: 17px!important; font-weight: 800 !important; text-align: center">
@@ -116,6 +127,117 @@ qsp<br/>
 
                 </t>
                
+               <div t-attf-class="footer" style="border-top: 1px solid #000; padding-top: 10px;">
+                   <table style="border: transparent !important; width:100%">
+                       <tr>
+                           <td>
+                               <i class="fa fa-phone"></i>
+                               05 50 46 81 10 / 07 95 42 53 77</td>
+
+                           <td> <i class="fa fa-map-marker"></i>
+                               Ain Amor, SEG</td>
+                       </tr>
+                   </table>
+
+                </div>
+            </t>
+        </t>
+    </template>
+    <template id="patient_test_order">
+        <t t-call="web.html_container">
+            <t t-call="web.basic_layout">
+                <table style="width: 100%;border: transparent !important;">
+                    <tr style="border: none;">
+                        <td style="border: none;border-bottom: 2px solid black !important; width: 40%;text-align:center">
+                           <p style="font-size: 16px !important;font-weight: 800 !important;">
+                               DR HAMMADI
+                           </p>
+                        <p style="font-size: 14px !important;">
+                            Cabinet de médecine générale
+                        </p>
+                        <p style="font-size: 14px!important;">
+                            Echographie générale - ECG
+                        </p>
+                            <p style="font-size: 16px !important;font-weight: 800 !important;">
+                                N° 10236/tzo
+                            </p>
+
+                        </td>
+                        <td rowspan="4" style="border: none;height: 35px;width: 30%;">
+                            <img src="/base_hospital_management/static/img/logo-cabinet.jpeg" style="width: 100%;" alt=""/>
+                        </td>
+                        <td style="border: none;border-bottom: 2px solid black !important;width: 30%;text-align:center">
+                            <p style="font-size: 16px !important;font-weight: 800 !important;">
+                                الحكيمة حمادي
+                            </p>
+
+                        <p style="font-size: 16px !important;font-weight: 800 !important;">
+                            طبيبة عامة
+                        </p>
+                            <p style="font-size: 14px !important;">
+                                إيكو غرافي ـ مخطط القلب
+                            </p>
+
+                        </td>
+                    </tr>
+                </table>
+                <table style="width: 100%; border: transparent !important;">
+                    <tr style="border: none;">
+                        <td style="font-size: 16px !important;font-weight: 800 !important;border: none; height: 25px;width: 70%">Nom: &#160;&#160;&#160; <span t-esc="lastname"/></td>
+                        <td style="border:none"></td>
+                    </tr>
+                    <tr style="font-size: 16px !important;font-weight: 800 !important;border: none;">
+                        <td style="border: none; height: 25px;">Prénom: &#160;&#160;&#160; <span t-esc="firstname"/></td>
+                        <td style="border: none; height: 25px;width: 50%;">Le: &#160;&#160;&#160; <span t-esc="date"/></td>
+                    </tr>
+                    <tr style="border:none">
+                        <td style="font-size: 16px !important;font-weight: 800 !important;border: none; height: 25px;">Age: &#160;&#160;&#160;
+                        <span t-esc="age"/> Ans</td>
+                        <td style="border:none"></td>
+                    </tr>
+                </table>
+                <br/>
+                <div class="row">
+                    <div class="col-4"></div>
+                    <div style="width: 180px;padding: 10px;border-radius:5px; color: #FFF; background-color: #222D7E;font-size: 17px!important; font-weight: 800 !important; text-align: center">
+                    Demande de bilan
+                </div>
+                    <div class="col-4"></div>
+                </div>
+                <br/>
+                <br/>
+		        <div class="row" style="display: flex; justify-content: space-between;">
+                    <!-- Première colonne -->
+                    <div class="col-6">
+                        <t t-set="half_length" t-value="len(datas) // 2"/>
+                        <t t-foreach="datas[:half_length]" t-as="test">
+                            <div style="margin-bottom: 8px; font-size: 14px;">
+                                <t t-if="test['parent_id']">
+                            <span style="padding-left: 30px;"><i class="fa fa-square-o" title="Open"></i>   <span t-esc="test['name']"/></span>  <br/>
+                            </t>
+                            <t t-else="">
+                             <span><i class="fa fa-square-o" title="Open"></i>  <span t-esc="test['name']"/></span>  <br/>
+                            </t>
+                            </div>
+                        </t>
+                    </div>
+
+                    <!-- Deuxième colonne -->
+                    <div class="col-6">
+                        <t t-foreach="datas[half_length:]" t-as="test">
+                            <div style="margin-bottom: 8px; font-size: 14px;">
+                                <t t-if="test['parent_id']">
+                            <span style="padding-left: 30px;"><i class="fa fa-square-o" title="Open"></i>   <span t-esc="test['name']"/></span>  <br/>
+                            </t>
+                            <t t-else="">
+                             <span><i class="fa fa-square-o" title="Open"></i>  <span t-esc="test['name']"/></span>  <br/>
+                            </t>
+                            </div>
+
+                        </t>
+                    </div>
+                </div>
+
                <div t-attf-class="footer" style="border-top: 1px solid #000; padding-top: 10px;">
                    <table style="border: transparent !important; width:100%">
                        <tr>

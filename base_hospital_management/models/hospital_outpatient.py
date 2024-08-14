@@ -123,17 +123,17 @@ class HospitalOutpatient(models.Model):
         comodel_name='laboratory.test.group',
         string='Groupe de tests')
 
-    button_consume_invisible = fields.Boolean(
-        string='Button_consume_invisible',
-        compue="compute_button_consume_invisible",
+    button_consume_visible = fields.Boolean(
+        string='button_consume_visible',
+        compue="compute_button_consume_visible",
         required=False)
 
-    def compute_button_consume_invisible(self):
+    def compute_button_consume_visible(self):
         for record in self:
-            if any(not line.consumed for line in record.medical_care_ids):
-                record.button_consume_invisible = False
+            if all(line.consumed for line in record.medical_care_ids or not record.medical_care_ids):
+                record.button_consume_visible = True
             else:
-                record.button_consume_invisible = True
+                record.button_consume_visible = False
 
     @api.onchange('test_lab_group_ids')
     def onchange_test_lab_group(self):
@@ -396,6 +396,37 @@ class HospitalOutpatient(models.Model):
     #         'context': {'create': False},
     #     }
 
+    def action_print_test_order(self):
+        """Method for printing prescription"""
+        data = False
+        p_list = []
+        for rec in self.test_lab_ids:
+            datas = {
+                'name': rec.test_id.name,
+                'parent_id': False,
+            }
+            p_list.append(datas)
+            if rec.test_id.sub_test_ids:
+                for test in rec.test_id.sub_test_ids:
+                    datas = {
+                        'name': test.name,
+                        'parent_id': test.id,
+                    }
+                    p_list.append(datas)
+
+        data = {
+            'datas': p_list,
+            'date': self.op_date.strftime('%d/%m/%Y'),
+            'patient_name': self.patient_id.name,
+            'age': self.patient_id.age,
+            'lastname': self.patient_id.lastname,
+            'firstname': self.patient_id.firstname,
+            # 'doctor_name': self.doctor_id.doctor_id.name,
+        }
+        return self.env.ref(
+            'base_hospital_management.action_report_test_order'). \
+            report_action(self, data=data)
+
     def action_print_prescription(self):
         """Method for printing prescription"""
         data = False
@@ -415,15 +446,15 @@ class HospitalOutpatient(models.Model):
                 'qsp': rec.qsp,
             }
             p_list.append(datas)
-            data = {
-                'datas': p_list,
-                'date': self.op_date.strftime('%d/%m/%Y'),
-                'patient_name': self.patient_id.name,
-                'age': self.patient_id.age,
-                'lastname': self.patient_id.lastname,
-                'firstname': self.patient_id.firstname,
-                #'doctor_name': self.doctor_id.doctor_id.name,
-            }
+        data = {
+            'datas': p_list,
+            'date': self.op_date.strftime('%d/%m/%Y'),
+            'patient_name': self.patient_id.name,
+            'age': self.patient_id.age,
+            'lastname': self.patient_id.lastname,
+            'firstname': self.patient_id.firstname,
+            #'doctor_name': self.doctor_id.doctor_id.name,
+        }
         return self.env.ref(
             'base_hospital_management.action_report_patient_prescription'). \
             report_action(self, data=data)
