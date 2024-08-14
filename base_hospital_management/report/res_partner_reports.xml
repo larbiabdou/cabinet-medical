@@ -213,10 +213,10 @@ qsp<br/>
                         <t t-foreach="datas[:half_length]" t-as="test">
                             <div style="margin-bottom: 8px; font-size: 14px;">
                                 <t t-if="test['parent_id']">
-                            <span style="padding-left: 30px;"><i class="fa fa-square-o" title="Open"></i>   <span t-esc="test['name']"/></span>  <br/>
+                            <span style="padding-left: 30px;"><i class="fa fa-square-o" title="Open"></i> &#160;&#160;  <span t-esc="test['name']"/></span>  <br/>
                             </t>
                             <t t-else="">
-                             <span><i class="fa fa-square-o" title="Open"></i>  <span t-esc="test['name']"/></span>  <br/>
+                             <span><i class="fa fa-square-o" title="Open"></i> &#160;&#160; <span t-esc="test['name']"/></span>  <br/>
                             </t>
                             </div>
                         </t>
@@ -227,10 +227,10 @@ qsp<br/>
                         <t t-foreach="datas[half_length:]" t-as="test">
                             <div style="margin-bottom: 8px; font-size: 14px;">
                                 <t t-if="test['parent_id']">
-                            <span style="padding-left: 30px;"><i class="fa fa-square-o" title="Open"></i>   <span t-esc="test['name']"/></span>  <br/>
+                            <span style="padding-left: 30px;"><i class="fa fa-square-o" title="Open"></i>  &#160;&#160; <span t-esc="test['name']"/></span>  <br/>
                             </t>
                             <t t-else="">
-                             <span><i class="fa fa-square-o" title="Open"></i>  <span t-esc="test['name']"/></span>  <br/>
+                             <span><i class="fa fa-square-o" title="Open"></i> &#160;&#160; <span t-esc="test['name']"/></span>  <br/>
                             </t>
                             </div>
 
