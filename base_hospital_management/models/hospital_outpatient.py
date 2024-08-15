@@ -128,6 +128,53 @@ class HospitalOutpatient(models.Model):
         compue="compute_button_consume_visible",
         required=False)
 
+    visit_type = fields.Selection(
+        string='Visit_type',
+        selection=[('visit', 'Visit'),
+                   ('hijama', 'hijama'),('acupuncture', 'acupuncture'), ],
+        compute='compute_visit_type',
+        store=True,
+        required=False, )
+    color = fields.Integer('Color', compute='_compute_color')
+
+    def _default_has_group_doctor(self):
+        if self.env.user.has_group('base_hospital_management.base_hospital_management_group_doctor'):
+            return True
+        else:
+            return False
+
+    has_group_doctor = fields.Boolean(
+        string='Has_group_doctor',
+        compute="compute_has_group_doctor",
+        default=_default_has_group_doctor,
+        required=False)
+
+    def compute_has_group_doctor(self):
+        for record in self:
+            if self.env.user.has_group('base_hospital_management.base_hospital_management_group_doctor'):
+                record.has_group_doctor = True
+            else:
+                record.has_group_doctor = False
+
+    def _compute_color(self):
+        for record in self:
+            if record.visit_type == 'visit':
+                record.color = 2  # Vert
+            elif record.visit_type == 'hijama':
+                record.color = 4  # Bleu
+            elif record.visit_type == 'acupuncture':
+                record.color = 10
+
+    @api.depends('visit_type_id')
+    def compute_visit_type(self):
+        for record in self:
+            if record.visit_type_id == self.env.ref("base_hospital_management.visit_type_visite"):
+                record.visit_type = 'visit'
+            elif record.visit_type_id == self.env.ref("base_hospital_management.visit_type_hijama"):
+                record.visit_type = 'hijama'
+            elif record.visit_type_id == self.env.ref("base_hospital_management.visit_type_visit_acupuncture"):
+                record.visit_type = 'acupuncture'
+
     def compute_button_consume_visible(self):
         for record in self:
             if all(line.consumed for line in record.medical_care_ids or not record.medical_care_ids):

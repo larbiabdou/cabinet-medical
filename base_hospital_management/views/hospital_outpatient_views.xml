@@ -7,12 +7,12 @@
         <field name="arch" type="xml">
             <tree>
                 <field name="op_reference" string="OP Reference"/>
-                <field name="slot"  widget="float_time"/>
+
                 <field name="patient_id"/>
+                <field name="visit_type_id"/>
                 <!--<field name="doctor_id"/>-->
                 <field name="op_date"/>
                 <field name="amount"/>
-                <field name="reason"/>
                 <field name="state" widget='badge'
                        decoration-warning="state=='draft'"
                        decoration-info="state=='op'"/>
@@ -24,9 +24,9 @@
         <field name="name">hospital.outpatient.calendar</field>
         <field name="model">hospital.outpatient</field>
         <field name="arch" type="xml">
-            <calendar string="Outpatients" date_start="op_date" date_stop="op_date">
-                <field name="op_reference"/>
-                <field name="patient_id"/>
+            <calendar string="Outpatients" date_start="op_date" date_stop="op_date" color="color">
+                <field name="op_reference" string="Référence"/>
+                <field name="patient_id" string="Patient"/>
             </calendar>
         </field>
     </record>
@@ -41,7 +41,7 @@
                             groups="base_hospital_management.base_hospital_management_group_manager,
                             base_hospital_management.base_hospital_management_group_doctor,
                             base_hospital_management.base_hospital_management_group_receptionist,
-                            base_hospital_management.base_hospital_management_group_nurse"/>
+                            e"/>
 
                     <button name="action_print_prescription" string="Print"
                             type="object" class="oe_highlight"
@@ -54,6 +54,7 @@
                             groups="base_hospital_management.base_hospital_management_group_doctor"
                         />
                     <button name="consume_medical_care_ids" type="object" string="Consommer les soins"
+                            groups="base_hospital_management.base_hospital_management_group_doctor"
                             invisible="state not in ('op') or button_consume_visible"
                     class="oe_highlight"/>
                     <field name="button_consume_visible" invisible="1"/>
@@ -80,24 +81,25 @@
                         <group>
                             <field name="patient_id" domain="[('is_patient', '=', True)]" context="{'default_is_patient': True}"/>
                             <field name="op_date"/>
-                            <field name="invoiced" invisible="1"/>
-                            <field name="reason"/>
-                            <field name="amount"/>
+                            <field name="has_group_doctor" invisible="1"/>
+
+                            <field name="reason" readonly="not has_group_doctor" groups="base_hospital_management.base_hospital_management_group_doctor"/>
+                            <field name="amount" readonly="not has_group_doctor"/>
                         </group>
                         <group>
                            <!-- <field name="doctor_id"
                                    options="{'no_create': True, 'no_edit': True}"
                                    readonly="state in ('invoice','cancel')"/>-->
                             <field name="visit_type_id" required="1"/>
-                            <field name="slot" invisible="state not in ('op')"
-                                     widget="float_time"/>
+                            <field name="visit_type" invisible="1"/>
+
                             <field name="test_count" invisible="1"/>
-                            <field name="test_lab_group_ids" widget="many2many_tags"/>
+                            <field name="test_lab_group_ids" widget="many2many_tags" readonly="not has_group_doctor" groups="base_hospital_management.base_hospital_management_group_doctor"/>
                         </group>
                     </group>
                     <notebook invisible="state not in ('op')">
-                        <page name="Prescription" string="Prescription">
-                            <field name="prescription_ids"
+                        <page name="Prescription" string="Prescription" groups="base_hospital_management.base_hospital_management_group_doctor">
+                            <field name="prescription_ids" readonly="not has_group_doctor"
 
                                    string="Prescription">
                                 <tree editable="bottom">
@@ -108,8 +110,8 @@
                                 </tree>
                             </field>
                         </page>
-                        <page name="Soins">
-                            <field name="medical_care_ids">
+                        <page name="Soins" groups="base_hospital_management.base_hospital_management_group_doctor">
+                            <field name="medical_care_ids" readonly="not has_group_doctor">
                                 <tree editable="bottom">
                                     <field name="product_id"/>
                                     <field name="quantity"/>
@@ -125,15 +127,15 @@
                                 </form>
                             </field>
                         </page>
-                        <page string="Demande de Bilan">
-                            <field name="test_lab_ids">
+                        <page string="Demande de Bilan" groups="base_hospital_management.base_hospital_management_group_doctor">
+                            <field name="test_lab_ids" readonly="not has_group_doctor">
                                 <tree editable="bottom">
                                     <field name="test_id" domain="[('parent_id', '=', False)]"/>
                                     <field name="result"/>
                                 </tree>
                             </field>
                         </page>
-                        <page string="Notes">
+                        <page string="Notes" readonly="not has_group_doctor" groups="base_hospital_management.base_hospital_management_group_doctor">
                             <field name="note"/>
                         </page>
                     </notebook>
@@ -151,19 +153,30 @@
         <field name="model">hospital.outpatient</field>
         <field name="arch" type="xml">
             <search>
+
                    <filter string="Aujourd'hui" name="today"
-                    domain="[('op_date', '=', context_today().strftime('%Y-%m-%d'))]"/>
+                    domain="[('op_date', '&gt;=', datetime.datetime.combine(context_today(),
+                    datetime.time(0,0,0))), ('op_date', '&lt;=', datetime.datetime.combine(context_today(), datetime.time(23,59,59)))]"/>
+                    <filter name="start_date_filter" string="Cette semaine" domain="[
+                        ('op_date', '>=', (datetime.datetime.combine(context_today() + relativedelta(weeks=-1,days=1,weekday=0), datetime.time(0,0,0)).to_utc()).strftime('%Y-%m-%d %H:%M:%S')),
+                        ('op_date', '&lt;', (datetime.datetime.combine(context_today() + relativedelta(days=1,weekday=0), datetime.time(0,0,0)).to_utc()).strftime('%Y-%m-%d %H:%M:%S'))]"/>
+
+                <field name="op_reference"/>
                 <field name="patient_id"/>
 
                 <filter string="Rendez-vous" name="appointment"
                         domain="[('state', '=', 'draft')]"/>
                 <filter string="Visite" name="visite"
                         domain="[('state', '=', 'op')]"/>
+
+                <separator/>
+                <filter name="visite" string="Visite" domain="[('visit_type', '=', 'visit')]"/>
+                <filter name="Hidjama" string="Hidjama" domain="[('visit_type', '=', 'hijama')]"/>
+                <filter name="acupuncture" string="Acupuncture" domain="[('visit_type', '=', 'acupuncture')]"/>
                 <separator/>
                 <filter name="Diabétique" string="Diabétique" domain="[('is_diabetic', '=', True)]"/>
                 <filter name="HTA" string="HTA" domain="[('is_hta', '=', True)]"/>
                 <filter name="Divers" string="Divers" domain="[('is_divers', '=', True)]"/>
-
             </search>
         </field>
     </record>
@@ -186,6 +199,7 @@
         <field name="res_model">hospital.outpatient</field>
         <field name="view_mode">tree,form,calendar</field>
         <field name="domain">[('state', '=', 'op')]</field>
+        <field name="context">{'search_default_today':1}</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
                 Create a new OP!

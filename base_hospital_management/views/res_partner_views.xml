@@ -167,7 +167,7 @@
 
                             </group>
                         </page>
-                        <page string="Visites">
+                        <page string="Visites" groups="base_hospital_management.base_hospital_management_group_doctor">
                             <field name="outpatient_ids">
                             <tree readonly="1">
                                 <field name="op_date"/>
@@ -178,9 +178,9 @@
                         </field>
                         </page>
                         <page name="medicine" string="Medical"
-                              groups="base_hospital_management.base_hospital_management_group_lab_assistant, base_hospital_management.base_hospital_management_group_pharmacist,base_hospital_management.base_hospital_management_group_nurse,base_hospital_management.base_hospital_management_group_receptionist,base_hospital_management.base_hospital_management_group_manager">
+                              groups="base_hospital_management.base_hospital_management_group_doctor">
                             <notebook>
-                                <page string="Medicine">
+                                <page string="Medicine" groups="base_hospital_management.base_hospital_management_group_doctor">
                                     <field name="prescription_ids">
                                         <tree editable="bottom" create="0">
                                             <field name="date"/>
@@ -213,7 +213,7 @@
                                 </page>-->
                             </notebook>
                         </page>
-                        <page string="Internal notes">
+                        <page string="Internal notes" groups="base_hospital_management.base_hospital_management_group_doctor">
                             <field name="notes"/>
                         </page>
                     </notebook>

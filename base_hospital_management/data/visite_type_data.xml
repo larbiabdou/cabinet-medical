@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="visit_type_visite" model="visit.type">
+            <field name="name">Visite</field>
+        </record>
+        <record id="visit_type_hijama" model="visit.type">
+            <field name="name">Hidjama</field>
+        </record>
+        <record id="visit_type_visit_acupuncture" model="visit.type">
+            <field name="name">Acupuncture</field>
+        </record>
+    </data>
+</odoo>

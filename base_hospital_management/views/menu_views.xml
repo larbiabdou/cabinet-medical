@@ -9,6 +9,7 @@
     <menuitem id="hospital_menu_appointment" name="Appointment"
               parent="hospital_menu_root"
               action="hospital_outpatient_action"
+              groups="base_hospital_management.base_hospital_management_group_receptionist,base_hospital_management.base_hospital_management_group_doctor"
               sequence="2"/>
     <!--    Patient menu
     <menuitem id="appointment_menu_patient" name="Patient"
@@ -61,7 +62,8 @@
               action="pharmacist_dashboard_action"/>-->
             <menuitem id="hospital_menu_visite" name="Visites"
               parent="hospital_menu_root"
-              action="hospital_outpatient_action_visite"
+              action="hospital_outpatient_action_visite" groups="base_hospital_management.base_hospital_management_group_receptionist,base_hospital_management.base_hospital_management_group_doctor"
+
               sequence="2"/>
     <!--    Doctor dashboard action
     <record id="doctor_dashboard_action" model="ir.actions.client">
