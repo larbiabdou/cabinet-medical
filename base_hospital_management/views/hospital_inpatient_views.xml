@@ -12,42 +12,9 @@
                             class="oe_highlight" type="object"
                             invisible="state !='draft'"
                     />
-                    <button name="action_admit" string="Admit" type="object"
-                            class="oe_highlight"
-                            invisible="state not in ['draft','reserve']"
-                            groups="base_hospital_management.base_hospital_management_group_manager,
-                            base_hospital_management.base_hospital_management_group_receptionist,
-                            base_hospital_management.base_hospital_management_group_doctor,
-                            base_hospital_management.base_hospital_management_group_nurse"
-                    />
-                    <button name="action_create_lab_test"
-                            string="Create Test"
-                            class="oe_highlight"
-                            type="object"
-                            invisible="state != 'admit'"
-                            groups="base_hospital_management.base_hospital_management_group_manager,
-                            base_hospital_management.base_hospital_management_group_receptionist,
-                            base_hospital_management.base_hospital_management_group_nurse"/>
-                    <button name="action_invoice" string="Create Invoice"
-                            type="object" class="oe_highlight"
-                            groups="base_hospital_management.base_hospital_management_group_receptionist,
-                            base_hospital_management.base_hospital_management_group_nurse"
-                            invisible="state != 'admit'">
-                    </button>
-                    <button name="action_discharge" string="Discharge"
-                            type="object" class="oe_highlight"
-                            groups="base_hospital_management.base_hospital_management_group_manager,
-                            base_hospital_management.base_hospital_management_group_receptionist,
-                            base_hospital_management.base_hospital_management_group_nurse"
-                           invisible="state not in ['admit','invoice']">
-                    </button>
-                    <button name="action_print_prescription"
-                            string="Prescription"
-                           invisible="state in ['draft','reserve']"
-                            groups="base_hospital_management.base_hospital_management_group_manager,
-                            base_hospital_management.base_hospital_management_group_receptionist,
-                            base_hospital_management.base_hospital_management_group_nurse"
-                            type="object" class="oe_highlight"/>
+
+
+
                 </header>
                 <sheet>
                     <div class="oe_button_box" name="button_box">

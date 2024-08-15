@@ -12,14 +12,12 @@
                             class="oe_highlight"
                             invisible="state != 'draft'"
                             type="object"
-                            groups="base_hospital_management.base_hospital_management_group_manager,
-                            base_hospital_management.base_hospital_management_group_doctor"
+                            groups="base_hospital_management.base_hospital_management_group_doctor"
                     />
                     <button name="action_cancel_allocation" string="Cancel"
                             invisible="state != 'draft'"
                             type="object"
-                            groups="base_hospital_management.base_hospital_management_group_manager,
-                            base_hospital_management.base_hospital_management_group_doctor"
+                            groups="base_hospital_management.base_hospital_management_group_doctor"
                     />
                     <field name="state" widget="statusbar"
                            statusbar_visible="draft,confirm"/>

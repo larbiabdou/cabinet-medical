@@ -3,7 +3,7 @@
     <!--    Hospital management menu-->
     <menuitem id="hospital_menu_root"
               web_icon="base_hospital_management,static/description/icon.png"
-              groups="base_hospital_management.base_hospital_management_group_lab_assistant,base_hospital_management.base_hospital_management_group_pharmacist,base_hospital_management.base_hospital_management_group_nurse,base_hospital_management.base_hospital_management_group_doctor,base_hospital_management.base_hospital_management_group_receptionist,base_hospital_management.base_hospital_management_group_manager"
+              groups="base_hospital_management.base_hospital_management_group_doctor,base_hospital_management.base_hospital_management_group_receptionist"
               name="Hospital Management"/>
     <!--    Appointment menu-->
     <menuitem id="hospital_menu_appointment" name="Appointment"
@@ -28,7 +28,7 @@
               sequence="6"/>
     <!--    Configuration menu-->
     <menuitem id="hospital_menu_configuration" name="Configuration" sequence="6"
-              groups="base_hospital_management.base_hospital_management_group_manager"
+              groups="base_hospital_management.base_hospital_management_group_doctor"
               parent="hospital_menu_root"/>
     <!--Reception dashboard action-->
     <!--<record id="reception_dashboard_action" model="ir.actions.client">

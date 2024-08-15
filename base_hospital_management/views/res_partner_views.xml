@@ -63,7 +63,7 @@
                 <header>
                     <button name="action_schedule" string="Add Appointment"
                             type="object"
-                            groups="base_hospital_management.base_hospital_management_group_manager,base_hospital_management.base_hospital_management_group_receptionist"
+                            groups="base_hospital_management.base_hospital_management_group_doctor,base_hospital_management.base_hospital_management_group_receptionist"
                             class="oe_highlight"/>
                 </header>
                 <sheet>
