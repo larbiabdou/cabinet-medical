@@ -178,6 +178,8 @@ class HospitalOutpatient(models.Model):
                 record.visit_type = 'acupuncture'
             elif record.visit_type_id == self.env.ref("base_hospital_management.visit_type_soins"):
                 record.visit_type = 'soins'
+            else:
+                record.visit_type = ''
 
     def compute_button_consume_visible(self):
         for record in self:
