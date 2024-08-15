@@ -173,6 +173,7 @@
                 <filter name="visite" string="Visite" domain="[('visit_type', '=', 'visit')]"/>
                 <filter name="Hidjama" string="Hidjama" domain="[('visit_type', '=', 'hijama')]"/>
                 <filter name="acupuncture" string="Acupuncture" domain="[('visit_type', '=', 'acupuncture')]"/>
+                <filter name="soins" string="Soins" domain="[('visit_type', '=', 'soins')]"/>
                 <separator/>
                 <filter name="Diabétique" string="Diabétique" domain="[('is_diabetic', '=', True)]"/>
                 <filter name="HTA" string="HTA" domain="[('is_hta', '=', True)]"/>

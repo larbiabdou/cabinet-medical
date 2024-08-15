@@ -131,7 +131,7 @@ class HospitalOutpatient(models.Model):
     visit_type = fields.Selection(
         string='Visit_type',
         selection=[('visit', 'Visit'),
-                   ('hijama', 'hijama'),('acupuncture', 'acupuncture'), ],
+                   ('hijama', 'hijama'),('acupuncture', 'acupuncture'),('soins', 'soins'), ],
         compute='compute_visit_type',
         store=True,
         required=False, )
@@ -164,6 +164,8 @@ class HospitalOutpatient(models.Model):
                 record.color = 4  # Bleu
             elif record.visit_type == 'acupuncture':
                 record.color = 10
+            elif record.visit_type == 'soins':
+                record.color = 6
 
     @api.depends('visit_type_id')
     def compute_visit_type(self):
@@ -174,6 +176,8 @@ class HospitalOutpatient(models.Model):
                 record.visit_type = 'hijama'
             elif record.visit_type_id == self.env.ref("base_hospital_management.visit_type_visit_acupuncture"):
                 record.visit_type = 'acupuncture'
+            elif record.visit_type_id == self.env.ref("base_hospital_management.visit_type_soins"):
+                record.visit_type = 'soins'
 
     def compute_button_consume_visible(self):
         for record in self:

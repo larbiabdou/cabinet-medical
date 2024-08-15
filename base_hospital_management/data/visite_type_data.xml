@@ -10,5 +10,8 @@
         <record id="visit_type_visit_acupuncture" model="visit.type">
             <field name="name">Acupuncture</field>
         </record>
+        <record id="visit_type_soins" model="visit.type">
+            <field name="name">Soins</field>
+        </record>
     </data>
 </odoo>
