@@ -114,6 +114,8 @@
                             <field name="date_of_birth"/>
                             <field name="age"/>
                             <field name="phone"/>
+
+                            <field name="total_credit"/>
                         </group>
                         <group>
                             <label for="blood_group" string="Blood Group"/>

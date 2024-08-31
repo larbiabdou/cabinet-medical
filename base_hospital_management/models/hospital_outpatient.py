@@ -102,6 +102,31 @@ class HospitalOutpatient(models.Model):
         string='Montant à payer', 
         required=False)
     
+    amount_paid = fields.Float(
+        string='Montant payé',
+        tracking=True,
+        required=False)
+    
+    payment_state = fields.Selection(
+        string='Paiment_state',
+        selection=[('not_paid', 'Non payé'),
+                   ('in_payment', 'En paiement'),
+                   ('paid', 'Payé'),],
+        default='not_paid',
+        tracking=True,
+        required=False, )
+        
+    @api.onchange('amount_paid', 'amount')
+    def _onchange_amount_paid(self):
+        for record in self:
+            if record.amount > 0:
+                if record.amount_paid >= record.amount:
+                    record.payment_state = 'paid'
+                elif record.amount_paid > 0:
+                    record.payment_state = 'in_payment'
+                else:
+                    record.payment_state = 'not_paid'
+
     medical_care_ids = fields.One2many(
         comodel_name='medical.care',
         inverse_name='outpatient_id',

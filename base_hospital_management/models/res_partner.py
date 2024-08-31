@@ -353,6 +353,20 @@ class ResPartner(models.Model):
         string='Nom',
         required=False)
 
+    total_credit = fields.Float(
+        string='Crédit',
+        compute="compute_total_credit",
+        required=False)
+
+    def compute_total_credit(self):
+        for record in self:
+            appointments = self.env['hospital.outpatient'].search([('patient_id', '=', record.id), ('state', '!=', 'draft')])
+            record.total_credit = sum(appointment.amount for appointment in appointments) - sum(appointment.amount_paid for appointment in appointments) or 0
+
+    _sql_constraints = [
+        ('unique_name_date_of_birth', 'unique(name, date_of_birth)', 'Un patient avec le même nom et la date de naissance existe déja'),
+    ]
+
     @api.onchange('firstname', 'lastname')
     def onchange_lastname_firstname(self):
         for record in self:
